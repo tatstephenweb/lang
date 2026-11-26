@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BIMS – Beneficiary Identity Management Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#3a8a2e;--gd:#2d6e3a;--ink:#2f3748;--mut:#6b7280;--line:#e5e7eb;--bg:#fff;
+--grad:linear-gradient(135deg,#d6fbd5 0%,#effbe3 45%,#dcf8f8 100%);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Satoshi","Urbanist",system-ui,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:#fff;box-shadow:0 1px 0 var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+.logo{display:flex;align-items:center;gap:2px;font-size:40px;font-weight:600;letter-spacing:1px;color:#1f2937}
+.logo svg{width:36px;height:44px}
+.links{display:none;gap:32px;font-weight:500}
+.links a:hover{color:var(--g)}
+.right{display:flex;align-items:center;gap:18px}
+.btn{display:inline-block;border:2px solid var(--g);color:var(--g);font-weight:600;padding:12px 24px;border-radius:10px;background:#fff;cursor:pointer;font:inherit;font-weight:600;transition:.2s}
+.btn:hover{background:var(--g);color:#fff}
+.btn.solid{background:var(--g);color:#fff;border-radius:10px}
+.btn.solid:hover{background:var(--gd)}
+.burger{background:none;border:0;padding:6px;cursor:pointer}
+.burger span{display:block;width:34px;height:4px;background:#2b3240;border-radius:3px;margin:6px 0}
+.menu{display:none;flex-direction:column;padding:8px 20px 20px;background:#fff;border-top:1px solid var(--line)}
+.menu.open{display:flex}.menu a{padding:12px 0;font-weight:500;border-bottom:1px solid var(--line)}
+.hero{background:var(--grad);text-align:center;padding:90px 0 0;overflow:hidden}
+h1{font-size:clamp(36px,6vw,64px);line-height:1.2;margin:0 0 20px;font-weight:600}
+h1 em{font-style:normal;color:var(--g)}
+.hero p{font-size:clamp(20px,2.6vw,26px);color:#4b5565;max-width:760px;margin:0 auto 36px}
+.badge{display:inline-flex;align-items:center;gap:14px;font-size:22px;color:#4b5565;margin-bottom:30px}
+.badge span.b{background:#fff;padding:8px 14px;border-radius:6px;display:flex;align-items:center;gap:8px;font-weight:700;color:#1f2937}
+.ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.art{max-width:760px;margin:20px auto 0;display:block;width:100%}
+section{padding:80px 0}
+h2{font-size:clamp(32px,4.5vw,46px);text-align:center;margin:0 0 14px;font-weight:600;line-height:1.2}
+.sub{text-align:center;color:var(--mut);font-size:20px;max-width:640px;margin:0 auto 48px}
+.grid{display:grid;gap:22px;grid-template-columns:1fr}
+.card{border:1px solid var(--line);border-radius:18px;padding:28px;background:#fff;box-shadow:0 10px 30px rgba(20,60,30,.05);transition:.25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(20,60,30,.1)}
+.ic{width:54px;height:54px;border-radius:14px;background:#e4f6df;color:var(--g);display:grid;place-items:center;margin-bottom:16px}
+.ic svg{width:26px;height:26px}
+.card h3{margin:0 0 8px;font-size:22px}.card p{margin:0;color:var(--mut)}
+.steps{counter-reset:s}
+.step{position:relative;padding-left:70px;margin-bottom:28px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:48px;height:48px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:700;font-size:20px}
+.step h3{margin:0 0 4px;font-size:22px}.step p{margin:0;color:var(--mut)}
+.alt{background:#f7fbf6}
+.faq{max-width:760px;margin:0 auto}
+.q{border-bottom:1px solid #d9dce1}
+.q button{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:26px 8px;cursor:pointer;font-size:20px;font-weight:600}
+.q button svg{flex:none;width:34px;height:34px;color:var(--gd);transition:transform .25s}
+.q.open button svg{transform:rotate(45deg)}
+.a{max-height:0;overflow:hidden;transition:max-height .3s;color:var(--mut);padding:0 8px;font-size:18px}
+.q.open .a{padding-bottom:22px}
+.form{max-width:640px;margin:0 auto;display:grid;gap:18px}
+.f{display:flex;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.03);overflow:hidden}
+.f i{width:56px;background:#f3f5f8;display:grid;place-items:center;color:#4b5565;border-right:1px solid var(--line)}
+.f i svg{width:20px;height:20px}
+.f input,textarea{flex:1;border:0;outline:0;padding:18px 20px;font:inherit;font-size:18px;color:var(--ink);background:transparent;min-width:0}
+textarea{display:block;width:100%;min-height:180px;resize:vertical}
+.f.t{display:block}
+.f:focus-within{border-color:var(--g);box-shadow:0 0 0 3px rgba(58,138,46,.15)}
+.form .btn{justify-self:center;font-size:19px;padding:16px 46px}
+.trust{background:var(--grad);text-align:center;padding:90px 0}
+.trust h2{font-size:clamp(34px,5vw,54px);max-width:520px;margin:0 auto 40px}
+.stats{display:grid;gap:18px;grid-template-columns:repeat(2,1fr);max-width:760px;margin:0 auto}
+.stat{background:rgba(255,255,255,.7);border-radius:16px;padding:22px}
+.stat b{display:block;font-size:34px;color:var(--g)}.stat span{color:var(--mut)}
+footer{background:#1f2937;color:#cbd5e1;padding:50px 0 30px}
+.fg{display:grid;gap:28px}
+footer .logo{color:#fff;font-size:30px}
+footer h4{color:#fff;margin:0 0 10px}footer a{display:block;padding:3px 0}footer a:hover{color:#fff}
+.copy{border-top:1px solid #374151;margin-top:34px;padding-top:20px;font-size:15px;text-align:center}
+@media(min-width:760px){
+.grid.c3{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(4,1fr)}.fg{grid-template-columns:2fr 1fr 1fr}
+.links{display:flex}.burger{display:none}.menu{display:none!important}
+.hero{padding-top:110px}.two{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+}
+.two{display:block}
+@media(min-width:760px){.two{display:grid}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap nav">
+  <a href="#top" class="logo" aria-label="BIMS home">
+   <svg viewBox="0 0 36 44" fill="none" stroke="#3a8a2e" stroke-width="3"><path d="M9 20v-6a9 9 0 0 1 18 0v2"/><circle cx="14" cy="30" r="11" fill="#fff"/><path d="M8 31h12" stroke-linecap="round"/><path d="M10 35h8" stroke="#2f3748" stroke-linecap="round"/></svg>IMS
+  </a>
+  <nav class="links"><a href="#features">Features</a><a href="#how">How it works</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
+  <div class="right"><a class="btn" href="#">Login</a><button class="burger" id="bg" aria-label="Menu"><span></span><span></span><span></span></button></div>
+ </div>
+ <div class="menu" id="mn"><a href="#features">Features</a><a href="#how">How it works</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div>
+</header>
+
+<main id="top">
+<div class="hero"><div class="wrap">
+ <h1>Beneficiary <em>Identity</em><br>Management Service</h1>
+ <p>BIMS provides identity services for TETFund Beneficiaries accessing various services sponsored by TETFund.</p>
+ <div class="badge"><span class="b"><svg width="26" height="30" viewBox="0 0 26 30"><path d="M13 1 2 5v9c0 7 5 12 11 15 6-3 11-8 11-15V5z" fill="#2d6e3a"/><circle cx="13" cy="13" r="3" fill="#fff"/></svg>NDPC</span>Data protection compliant.</div>
+ <div class="ctas"><a class="btn solid" href="#contact">Get Started</a><a class="btn" href="#how">Learn more</a></div>
+ <svg class="art" viewBox="0 0 780 520" role="img" aria-label="People connected through a global identity network">
+  <rect x="0" y="420" width="780" height="100" fill="#fff"/>
+  <circle cx="390" cy="240" r="190" fill="none" stroke="#c9d3de" stroke-width="5" stroke-dasharray="22 16"/>
+  <circle cx="390" cy="240" r="175" fill="#6a55c8"/>
+  <circle cx="390" cy="240" r="175" fill="url(#gl)"/>
+  <defs><radialGradient id="gl" cx=".3" cy=".3"><stop offset="0" stop-color="#9a8af0" stop-opacity=".7"/><stop offset="1" stop-color="#4b3aa8" stop-opacity="0"/></radialGradient></defs>
+  <path d="M260 150c30-30 80-40 120-25 25 10 20 40-5 50-25 10-30 40-60 40s-70-20-55-65zM420 250c30-10 70 0 85 30 10 25-10 50-45 55-30 4-60-20-55-50 2-15 5-30 15-35zM330 330c20 0 30 20 20 40-10 14-40 10-45-8-3-15 10-32 25-32z" fill="#7d6ad9"/>
+  <path d="M300 130l90 110M390 240l-120 100M390 240l120-70M390 240l90 130" stroke="#fff" stroke-width="5" stroke-dasharray="14 12"/>
+  <g fill="#e9eef6"><circle cx="248" cy="106" r="38"/><circle cx="508" cy="172" r="38"/><circle cx="560" cy="360" r="38"/><circle cx="250" cy="380" r="38"/><circle cx="373" cy="250" r="44"/></g>
+  <g fill="#3a8a2e"><g transform="translate(248 106)"><circle cy="-9" r="9"/><path d="M-16 18a16 16 0 0 1 32 0z"/></g><g transform="translate(508 172)"><circle cy="-9" r="9"/><path d="M-16 18a16 16 0 0 1 32 0z"/></g><g transform="translate(560 360)"><circle cy="-9" r="9"/><path d="M-16 18a16 16 0 0 1 32 0z"/></g><g transform="translate(250 380)"><circle cy="-9" r="9"/><path d="M-16 18a16 16 0 0 1 32 0z"/></g></g>
+  <g transform="translate(373 250)" fill="none" stroke="#3a8a2e" stroke-width="4"><path d="M-10-12v-8a10 10 0 0 1 20 0v4"/><circle cx="0" cy="6" r="15" fill="#fff"/><path d="M-8 6h16" stroke="#2f3748" stroke-linecap="round"/></g>
+  <!-- woman -->
+  <g transform="translate(20 0)">
+   <path d="M62 300q-14 20-10 40" stroke="#3b2a24" stroke-width="12" fill="none" stroke-linecap="round"/>
+   <circle cx="92" cy="316" r="30" fill="#c58c6e"/><path d="M64 310c0-30 50-34 56-4-18-12-36-10-56 4z" fill="#3b2a24"/>
+   <path d="M56 372c10-20 70-24 78 0l6 40H52z" fill="#4aa13a"/>
+   <path d="M60 412h76l10 130H112l-10-80-12 80H64z" fill="#e9a3c0"/>
+   <path d="M62 380l-10 50 50-30" stroke="#c58c6e" stroke-width="12" fill="none" stroke-linecap="round"/>
+   <ellipse cx="86" cy="548" rx="32" ry="11" fill="#f3d9a0"/><ellipse cx="136" cy="548" rx="30" ry="11" fill="#f3d9a0"/>
+  </g>
+  <!-- man -->
+  <g transform="translate(570 0)">
+   <circle cx="56" cy="316" r="28" fill="#c58c6e"/><path d="M28 312c2-30 54-34 58 0-14-10-40-12-58 0z" fill="#1f1f2b"/>
+   <path d="M20 372c10-20 70-22 80 0l4 40H16z" fill="#4aa13a"/>
+   <rect x="38" y="392" width="26" height="40" rx="5" fill="#7b61d8"/>
+   <path d="M22 412h82l-10 135H72l-6-100-8 100H34z" fill="#1f2433"/>
+   <path d="M24 380l8 40 30-12" stroke="#c58c6e" stroke-width="12" fill="none" stroke-linecap="round"/>
+   <ellipse cx="46" cy="552" rx="26" ry="9" fill="#fff" stroke="#1f2433" stroke-width="3"/><ellipse cx="90" cy="552" rx="26" ry="9" fill="#fff" stroke="#1f2433" stroke-width="3"/>
+  </g>
+  <!-- plant -->
+  <g transform="translate(490 0)"><path d="M10 470c5-30 20-55 36-60-8 30-14 40-10 60zM60 470c-4-30-18-52-34-58 6 30 12 40 8 58zM35 470c-6-34-4-52 0-66 6 14 6 32 0 66z" fill="#7aa6c4"/><path d="M0 470h70l-8 78H8z" fill="#3a8a2e"/></g>
+ </svg>
+</div></div>
+
+<section id="features"><div class="wrap">
+ <h2>Everything you need, <span style="color:var(--g)">in one identity</span></h2>
+ <p class="sub">A single, secure profile that lets beneficiaries access every service sponsored by TETFund.</p>
+ <div class="grid c3">
+  <div class="card"><div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h3>Secure Authentication</h3><p>Protected sign-in with CSRF protection, encrypted passwords and session safeguards.</p></div>
+  <div class="card"><div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><h3>Single Identity</h3><p>One verified profile for every connected app, so you never re-enter your details.</p></div>
+  <div class="card"><div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Privacy Compliant</h3><p>Built around data protection standards to keep beneficiary data safe.</p></div>
+  <div class="card"><div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div><h3>Data Collation</h3><p>Submit institutional records in supported formats, with clear validation feedback.</p></div>
+  <div class="card"><div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div><h3>Connected Apps</h3><p>Hundreds of integrated applications use BIMS to confirm who you are.</p></div>
+  <div class="card"><div class="ic"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></div><h3>Dedicated Support</h3><p>Reach the help desk any time through the contact form below.</p></div>
+ </div>
+</div></section>
+
+<section id="how" class="alt"><div class="wrap two">
+ <div><h2 style="text-align:left">How it works</h2><p class="sub" style="text-align:left;margin-left:0">Getting started takes only a few minutes.</p></div>
+ <div class="steps">
+  <div class="step"><h3>Get registered</h3><p>Your institution submits your details to be onboarded on BIMS.</p></div>
+  <div class="step"><h3>Log in securely</h3><p>Use your registered email and the default password sent to you, then change it.</p></div>
+  <div class="step"><h3>Access services</h3><p>Use your verified identity across TETFund-sponsored services.</p></div>
+ </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+ <h2>Frequently Asked Questions</h2>
+ <p class="sub">Here is a carefully compiled list of popular questions and answers users have had while using BIMS.</p>
+ <div class="faq" id="fq">
+  <div class="q open"><button>1. Lost or forgotten your password?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M7 12h10"/></svg></button><div class="a"><b>If you have lost or forgotten your password –</b><br>– Click on the ‘forgot password’ link on the login page<br>– Enter your registered email address to receive a default password<br>– Ensure to change to the desired password.</div></div>
+  <div class="q"><button>2. Tried to login and got ‘CSRF token mismatch’ error message?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M7 12h10"/></svg></button><div class="a">Refresh the page, clear your browser cache and cookies, then try logging in again.</div></div>
+  <div class="q"><button>3. When I refresh or restart, I receive this error upon login “These credentials do not match our records”, what do I do?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M7 12h10"/></svg></button><div class="a">Confirm you are using your registered email and current password. If unsure, use ‘forgot password’ to receive a new default password.</div></div>
+  <div class="q"><button>4. Which document file format should be used for data collation?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M7 12h10"/></svg></button><div class="a">Use the template provided on your dashboard, saved as an Excel (.xlsx) or CSV file.</div></div>
+ </div>
+</div></section>
+
+<section id="contact" class="alt"><div class="wrap">
+ <h2>Get in touch</h2><p class="sub">Have a question or need help? Send us a message.</p>
+ <form class="form" id="cf">
+  <label class="f"><i><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></i><input placeholder="Full Name" required></label>
+  <label class="f"><i><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></i><input type="email" placeholder="Email" required></label>
+  <label class="f"><i><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></i><input type="tel" placeholder="Phone Number"></label>
+  <label class="f"><i><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10h8M8 14h5"/></svg></i><input placeholder="Your institution"></label>
+  <label class="f"><i><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10h8M8 14h5"/></svg></i><input placeholder="Your subject"></label>
+  <div class="f t"><textarea placeholder="Your Message"></textarea></div>
+  <button class="btn solid" type="submit" id="sb">Send Your Message</button>
+ </form>
+</div></section>
+
+<div class="trust"><div class="wrap">
+ <h2>Trusted by 250+ Apps, using over 2 Million Identities.</h2>
+ <div class="stats"><div class="stat"><b>250+</b><span>Apps</span></div><div class="stat"><b>2M+</b><span>Identities</span></div><div class="stat"><b>99.9%</b><span>Uptime</span></div><div class="stat"><b>24/7</b><span>Support</span></div></div>
+</div></div>
+</main>
+
+<footer><div class="wrap">
+ <div class="fg">
+  <div><div class="logo">BIMS</div><p>Beneficiary Identity Management Service for TETFund beneficiaries.</p></div>
+  <div><h4>Links</h4><a href="#features">Features</a><a href="#how">How it works</a><a href="#faq">FAQ</a></div>
+  <div><h4>Support</h4><a href="#contact">Contact us</a><a href="#">Login</a></div>
+ </div>
+ <div class="copy">© 2026 BIMS. All rights reserved.</div>
+</div></footer>
+
+<script>
+var bg=document.getElementById('bg'),mn=document.getElementById('mn');
+bg.onclick=function(){mn.classList.toggle('open')};
+mn.querySelectorAll('a').forEach(function(a){a.onclick=function(){mn.classList.remove('open')}});
+document.querySelectorAll('.q').forEach(function(q){
+ var a=q.querySelector('.a');
+ if(q.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';
+ q.querySelector('button').onclick=function(){
+  var o=q.classList.toggle('open');a.style.maxHeight=o?a.scrollHeight+'px':'0';
+ };
+});
+document.getElementById('cf').onsubmit=function(e){e.preventDefault();var b=document.getElementById('sb');b.textContent='Message sent ✓';this.reset();setTimeout(function(){b.textContent='Send Your Message'},2500)};
+</script>
+</body>
+</html>
